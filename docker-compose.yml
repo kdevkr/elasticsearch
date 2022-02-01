@@ -1,0 +1,43 @@
+version: "3.8"
+services:
+  elasticsearch:
+    container_name: es
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.16.3
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - es_data:/user/share/elasticsearch/data
+    networks:
+      - esnet
+    environment:
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65535
+        hard: 65535
+    
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.16.3
+    ports:
+      - 5601:5601
+    networks:
+      - esnet
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    depends_on:
+      - elasticsearch
+
+volumes:
+  es_data:
+
+networks:
+  esnet:
+    driver: bridge
