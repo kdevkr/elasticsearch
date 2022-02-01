@@ -13,4 +13,3 @@ docker-compose up -d
 `Kibana > Management > Integrations > Upload Files`
 
 Import data from access.csv
-
