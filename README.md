@@ -13,3 +13,11 @@ docker-compose up -d
 `Kibana > Management > Integrations > Upload Files`
 
 Import data from access.csv
+
+## Troubleshooting
+
+### Docker Desktop WSL 2
+```sh
+wsl -d docker-desktop
+sysctl -w vm.max_map_count=262144
+```
