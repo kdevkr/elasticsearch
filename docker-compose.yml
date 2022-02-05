@@ -7,7 +7,7 @@ services:
       - 9200:9200
       - 9300:9300
     volumes:
-      - es_data:/user/share/elasticsearch/data
+      - es_data:/usr/share/elasticsearch/data
     networks:
       - esnet
     environment:
@@ -15,6 +15,8 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - xpack.security.enabled=false
+      - cluster.name=docker-cluster
+      - node.name=default
     ulimits:
       memlock:
         soft: -1
