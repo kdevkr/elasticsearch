@@ -1,0 +1,58 @@
+{
+  "index_patterns": [
+    "applicaiton-accesslog-*"
+  ],
+  "template": {
+    "settings": {
+      "analysis": {
+        "analyzer": {
+          "path_analyzer": {
+            "tokenizer": "path_hierarchy"
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "contentLength": {
+          "type": "long"
+        },
+        "date": {
+          "type": "date",
+          "format": "date_hour_minute_second || epoch_millis"
+        },
+        "elapsedTime": {
+          "type": "integer"
+        },
+        "protocol": {
+          "type": "keyword"
+        },
+        "referer": {
+          "type": "keyword"
+        },
+        "remoteHost": {
+          "type": "keyword"
+        },
+        "requestMethod": {
+          "type": "keyword"
+        },
+        "requestURI": {
+          "type": "text",
+          "analyzer": "path_analyzer"
+        },
+        "statusCode": {
+          "type": "short"
+        },
+        "user": {
+          "type": "keyword"
+        },
+        "userAgent": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}
